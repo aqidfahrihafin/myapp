@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\TagihanResource\Pages;
 use App\Filament\Resources\TagihanResource\Pages\ManageTagihans;
+use App\Models\JenisTagihan;
 use App\Models\Periode;
 use App\Models\PersentaseTagihan;
 use App\Models\Santri;
@@ -55,7 +56,9 @@ class TagihanResource extends Resource
                 ->relationship('santri', 'nama')
                 ->searchable()
                 ->required(),
-            Forms\Components\TextInput::make('jenis_tagihan')
+            Forms\Components\Select::make('jenis_tagihan_id')
+                ->label('Jenis Tagihan')
+                ->relationship('jenis_tagihan', 'nama_jenis')
                 ->required(),
             Forms\Components\TextInput::make('jumlah_tagihan')
                 ->numeric()
@@ -84,8 +87,9 @@ class TagihanResource extends Resource
                             ->label('Periode')
                             ->options(Periode::pluck('nama_periode', 'id'))
                             ->required(),
-                        Forms\Components\TextInput::make('jenis_tagihan')
+                        Forms\Components\Select::make('jenis_tagihan_id')
                             ->label('Jenis Tagihan')
+                            ->options(JenisTagihan::pluck('nama_jenis', 'id'))
                             ->required(),
                         Forms\Components\TextInput::make('jumlah_tagihan')
                             ->label('Jumlah Tagihan')
@@ -126,7 +130,7 @@ class TagihanResource extends Resource
                             $tagihanData[] = [
                                 'santri_id' => $santri->id,
                                 'periode_id' => $data['periode_id'],
-                                'jenis_tagihan' => $data['jenis_tagihan'],
+                                'jenis_tagihan_id' => $data['jenis_tagihan_id'],
                                 'jumlah_tagihan' => $data['jumlah_tagihan'],
                                 'tanggal_jatuh_tempo' => $data['tanggal_jatuh_tempo'],
                                 'status' => 'Belum Lunas',
@@ -166,7 +170,7 @@ class TagihanResource extends Resource
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault:true),
 
-                Tables\Columns\TextColumn::make('jenis_tagihan')
+                Tables\Columns\TextColumn::make('jenis_tagihan.nama_jenis')
                     ->label('Jenis Tagihan')
                     ->sortable()
                     ->searchable()

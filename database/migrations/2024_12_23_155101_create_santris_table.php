@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('image', 255);
             $table->string('nis', 20)->unique();
             $table->string('nik', 20)->unique();
-            $table->string('no_kk', 20)->unique();
+            $table->string('no_kk', 20);
             $table->string('tempat_lahir', 50);
             $table->date('tanggal_lahir');
             $table->text('alamat');

@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use App\Models\Santri;
+use App\Models\JenisTagihan;
 use App\Models\Periode;
-use App\Models\Transaksi;
 use App\Models\RiwayatTransaksi;
+use App\Models\Santri;
+use App\Models\Transaksi;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -23,7 +24,7 @@ class Tagihan extends Model
         'tagihan_id',
         'santri_id',
         'periode_id',
-        'jenis_tagihan',
+        'jenis_tagihan_id',
         'jumlah_tagihan',
         'tanggal_jatuh_tempo',
         'deskripsi',
@@ -44,7 +45,7 @@ class Tagihan extends Model
             self::create([
                 'santri_id' => $santri->santri_id,
                 'periode_id' => $record->periode_id,
-                'jenis_tagihan' => $record->jenis_tagihan,
+                'jenis_tagihan_id' => $record->jenis_tagihan_id,
                 'jumlah_tagihan' => $record->jumlah_tagihan,
                 'tanggal_jatuh_tempo' => $record->tanggal_jatuh_tempo,
                 'deskripsi' => $record->deskripsi,
@@ -69,6 +70,11 @@ class Tagihan extends Model
     {
         return $this->belongsTo(Periode::class);
     }
+
+    public function jenis_tagihan()
+{
+    return $this->belongsTo(JenisTagihan::class, 'jenis_tagihan_id');
+}
 
     /**
      * Mendapatkan transaksi terkait tagihan ini

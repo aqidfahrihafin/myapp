@@ -5,29 +5,28 @@ namespace App\Filament\Resources;
 use App\Filament\Exports\SantriExporter;
 use App\Filament\Resources\SantriResource\Pages;
 use App\Filament\Resources\SantriResource\Pages\ManageSantris;
-use App\Imports\SantriImport;
 use App\Models\Santri;
+use Filament\Actions\Exports\Enums\ExportFormat;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
-use Filament\Notifications\Notification;
-use Filament\Pages\Actions\DeleteAction;
 use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\BulkActionGroup;
-use Filament\Tables\Actions\CreateAction;
+use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\ExportAction;
+use Filament\Tables\Actions\ImportAction;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Forms\Form;
-use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Database\Eloquent\Builder;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportAction as ExcelExportAction;
 use Tables\Table;
 
@@ -42,6 +41,7 @@ class SantriResource extends Resource
 
     public static function getNavigationBadge(): ?string
     {
+        // Menghitung jumlah santri yang bukan alumni
         return static::getModel()::where('status_santri', '!=', 'alumni')->count();
     }
 
@@ -209,7 +209,7 @@ class SantriResource extends Resource
     public static function table(Tables\Table $table): Tables\Table
     {
         return $table
-              ->columns([
+            ->columns([
                 ImageColumn::make('image')
                     ->circular()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -268,71 +268,45 @@ class SantriResource extends Resource
             ])
 
             ->filters([
-                SelectFilter::make('santri')->label('Nama Kamar')->relationship('kamar', 'nama_kamar'),
+                SelectFilter::make('santri')
+                    ->label('Nama Kamar')
+                    ->relationship('kamar', 'nama_kamar'),
             ])
 
             ->actions([
-                 Tables\Actions\ViewAction::make()
+                Tables\Actions\ViewAction::make()
                     ->icon('heroicon-o-eye')
                     ->label(''),
+
                 Tables\Actions\EditAction::make()
                     ->icon('heroicon-o-pencil')
                     ->label(''),
+
                 Tables\Actions\DeleteAction::make()
                     ->icon('heroicon-o-trash')
                     ->label(''),
             ])
 
-
-          ->headerActions([
-                Action::make('import')
-                    ->label('Import Data')
-                    ->action(function (array $data) {
-                        if (!isset($data['file']) || !is_string($data['file'])) {
-                                throw new \Exception('File tidak diterima oleh sistem. Pastikan Anda sudah mengunggah file yang benar.');
-                            }
-
-                            $filePath = $data['file'];
-                            if (!file_exists(storage_path('app/public/' . $filePath))) {
-                                throw new \Exception('File tidak ditemukan di path: ' . $filePath);
-                            }
-
-                        try {
-                            // Proses import dengan path lengkap
-                        $import = new SantriImport();
-                        Excel::import(new SantriImport, storage_path('app/public/' . $filePath));
-
-                        // Kirimkan notifikasi
-                      Notification::make()
-                        ->title('Proses Impor Selesai')
-                        ->body("Berhasil mengimpor " . $successCount = $import->getSuccessCount(). " data, gagal mengimpor " . $failCount = $import->getFailCount() . " data.")
-                        ->success()
-                        ->send();
-                    } catch (\Exception $e) {
-                        // Jika terjadi error
-                        Notification::make()
-                            ->title('Terjadi Kesalahan')
-                            ->body('Proses impor gagal: ' . $e->getMessage())
-                            ->danger()
-                            ->send();
-                    }
-                })
-                ->form([
-                    FileUpload::make('file')
-                        ->label('File Excel')
-                        ->required()
-                        ->acceptedFileTypes(['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'])
-                        ->disk('public') // Tentukan disk 'public' agar file tersimpan di public
-                        ->directory('temp'),  // Tempat penyimpanan file sementara
-                ])
+            ->headerActions([
+                ImportAction::make()
                 ->icon('heroicon-o-arrow-up-tray')
-                ->color('danger'),
-
-                Tables\Actions\CreateAction::make()->label('Add Santri')
-                ->label('Add Santri')
-                ->icon('heroicon-o-plus-circle'),
-                ExcelExportAction::make()->color('success'),
+                    ->label('Import Santri')
+                    ->color('danger'),
+                Tables\Actions\CreateAction::make('CreateAction')
+                    ->label('Add Santri')
+                    ->icon('heroicon-o-plus-circle'),
+                ExcelExportAction::make()
+                    ->color('success')
             ])
+
+
+            // ->headerActions([
+            //     ExportAction::make()
+            //         ->exporter(SantriExporter::class)
+            //         ->formats([
+            //             ExportFormat::Xlsx,
+            //         ]),
+            // ])
 
             ->bulkActions([
                 BulkActionGroup::make([

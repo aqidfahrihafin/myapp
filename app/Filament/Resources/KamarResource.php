@@ -32,7 +32,7 @@ class KamarResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-home-modern';
     protected static ?string $navigationLabel = 'Kamar';
     protected static ?string $navigationGroup = 'Data Referensi';
-    protected static ?int $navigationSort = 13 ;
+    protected static ?int $navigationSort = 14 ;
 
     public static function getNavigationBadge(): ?string{
         return static::getModel()::count();

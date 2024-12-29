@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('santri_id')->nullable()->constrained('santri')->onDelete('cascade');
             $table->foreignId('periode_id')->constrained('periode')->onDelete('cascade');
-            $table->string('jenis_tagihan', 50);
+            $table->foreignId('jenis_tagihan_id')->constrained('jenis_tagihan')->onDelete('cascade');
             $table->decimal('jumlah_tagihan', 10, 2);
             $table->date('tanggal_jatuh_tempo');
             $table->text('deskripsi');

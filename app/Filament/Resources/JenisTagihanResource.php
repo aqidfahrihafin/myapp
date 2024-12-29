@@ -2,35 +2,32 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\RayonResource\Pages;
-use App\Filament\Resources\RayonResource\Pages\ManageRayons;
-use App\Filament\Resources\RayonResource\RelationManagers;
-use App\Models\Rayon;
-use Filament\Actions\EditAction;
+use App\Filament\Resources\JenisTagihanResource\Pages;
+use App\Filament\Resources\JenisTagihanResource\Pages\ManageJenisTagihans;
+use App\Filament\Resources\JenisTagihanResource\RelationManagers;
+use App\Models\JenisTagihan;
 use Filament\Forms;
-use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
-use Filament\Pages\Actions\DeleteAction;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Actions\BulkActionGroup;
+use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
-use Filament\Tables\Actions\ViewAction;
-use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class RayonResource extends Resource
+class JenisTagihanResource extends Resource
 {
-    protected static ?string $model = Rayon::class;
+    protected static ?string $model = JenisTagihan::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-group';
-    protected static ?string $navigationLabel = 'Rayon';
+    protected static ?string $navigationIcon = 'heroicon-o-bookmark-square';
+    protected static ?string $navigationLabel = 'Jenis Tagihan';
     protected static ?string $navigationGroup = 'Data Referensi';
-    protected static ?int $navigationSort = 13 ;
+    protected static ?int $navigationSort = 12 ;
 
     public static function getNavigationBadge(): ?string{
         return static::getModel()::count();
@@ -40,12 +37,7 @@ class RayonResource extends Resource
     {
         return $form
             ->schema([
-                FileUpload::make('image')
-                ->image()
-                ->directory('rayons')
-                ->required()
-                ->columnSpan(2),
-                TextInput::make('nama_rayon')
+                 TextInput::make('nama_jenis')
                  ->columnSpan(2),
                 TextInput::make('deskripsi')
                  ->columnSpan(2),
@@ -56,9 +48,7 @@ class RayonResource extends Resource
     {
         return $table
             ->columns([
-                ImageColumn::make('image')
-                ->circular(),
-                TextColumn::make('nama_rayon')
+                TextColumn::make('nama_jenis')
                 ->searchable(),
                 TextColumn::make('deskripsi'),
             ])
@@ -66,9 +56,6 @@ class RayonResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make()
-                    ->icon('heroicon-o-eye')
-                    ->label(''),
                 Tables\Actions\EditAction::make()
                     ->icon('heroicon-o-pencil')
                     ->label(''),
@@ -86,7 +73,7 @@ class RayonResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageRayons::route('/'),
+            'index' => Pages\ManageJenisTagihans::route('/'),
         ];
     }
 }
