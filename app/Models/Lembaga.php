@@ -18,6 +18,7 @@ class Lembaga extends Model
         'lembaga_id',
         'nama_lembaga',
         'nsm',
+        'npsm',
         'kecamatan',
         'kabupaten',
         'provinsi',

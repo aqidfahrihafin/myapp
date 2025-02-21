@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('nama_lembaga', 100);
             $table->string('image', 255);
             $table->string('nsm');
-            $table->string('npsm');
             $table->string('kecamatan', 100);
             $table->string('kabupaten', 100);
             $table->string('provinsi', 100);

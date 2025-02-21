@@ -11,13 +11,13 @@ class Alumni extends Model
 {
     use HasFactory;
 
-    // Tentukan nama tabel jika tidak sesuai dengan nama model (optional)
-    protected $table = 'santri';
- protected $fillable = [
+    protected $table = 'alumni';
+
+    protected $fillable = [
         'kamar_id',
         'periode_id',
-        'nama_wali',
         'persentase_tagihan_id',
+        'nama_wali',
         'nis',
         'nik',
         'no_kk',
@@ -30,8 +30,12 @@ class Alumni extends Model
         'status_santri',
     ];
 
-     public function scopeAlumni($query)
-    {
-        return $query->where('status_santri', 'alumni');
-    }
+    public function kamar()
+{
+    return $this->belongsTo(Kamar::class, 'kamar_id');
+}
+public function periode()
+{
+    return $this->belongsTo(Periode::class, 'periode_id');
+}
 }

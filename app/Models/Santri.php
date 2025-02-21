@@ -7,6 +7,7 @@ use App\Models\Periode;
 use App\Models\PersentaseTagihan;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB; // Tambahkan use DB
 
 class Santri extends Model
 {
@@ -31,18 +32,54 @@ class Santri extends Model
         'status_santri',
     ];
 
-     public function tagihans()
+    // Tambahkan method boot() di sini
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::updating(function ($santri) {
+            if ($santri->isDirty('status_santri') && $santri->status_santri === 'alumni') {
+                // Salin data santri ke tabel alumni
+                DB::table('alumni')->insert([
+                    'kamar_id' => $santri->kamar_id,
+                    'periode_id' => $santri->periode_id,
+                    'persentase_tagihan_id' => $santri->persentase_tagihan_id,
+                    'nama_wali' => $santri->nama_wali,
+                    'nis' => $santri->nis,
+                    'nik' => $santri->nik,
+                    'no_kk' => $santri->no_kk,
+                    'nama' => $santri->nama,
+                    'image' => $santri->image,
+                    'tempat_lahir' => $santri->tempat_lahir,
+                    'tanggal_lahir' => $santri->tanggal_lahir,
+                    'alamat' => $santri->alamat,
+                    'jenis_kelamin' => $santri->jenis_kelamin,
+                    'status_santri' => 'alumni',
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+
+                // Hapus data santri dari tabel santri
+                $santri->delete();
+            }
+        });
+    }
+
+    public function tagihans()
     {
         return $this->hasMany(Tagihan::class, 'santri_id');
     }
+
     public function persentaseTagihan()
     {
         return $this->belongsTo(PersentaseTagihan::class, 'persentase_tagihan_id');
     }
+
     public function tagihan()
     {
         return $this->hasMany(Tagihan::class);
     }
+
     // Relasi dengan model Periode
     public function periode()
     {
@@ -54,6 +91,10 @@ class Santri extends Model
     {
         return $this->belongsTo(Kamar::class);
     }
+    public function rayon()
+{
+    return $this->belongsTo(Rayon::class, 'rayon_id');
+}
 
     // Relasi dengan model PersentaseTagihan
     public function persentase_tagihan()
