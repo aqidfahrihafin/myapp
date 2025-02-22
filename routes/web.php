@@ -15,13 +15,17 @@ use App\Http\Controllers\SantriSearchController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-
-});
 Route::get('/santri/search', [SantriSearchController::class, 'index'])->name('santri.index');
 Route::post('/santri/search', [SantriSearchController::class, 'search'])->name('santri.search.post');
 
 Route::get('/cek-saldo', function () {
     return view('pages.cek_saldo'); // Sesuaikan dengan lokasi file
 })->name('cek.saldo');
+
+
+// wali
+
+Route::get('/', function () {  return view('auth.login');});
+Route::get('/dashboard-wali', function () {return view('front.wali.index');});
+Route::get('/data-santri', function () {return view('front.wali.datasantri');});
+Route::get('/transaksi', function () {return view('front.wali.transaksi');});
