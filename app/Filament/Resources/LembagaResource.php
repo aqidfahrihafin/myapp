@@ -79,6 +79,7 @@ class LembagaResource extends Resource
                     ->searchable(),
                 TextColumn::make('nsm'),
                 TextColumn::make('npsm'),
+                 TextColumn::make('nip'),
                 TextColumn::make('kabupaten'),
                 TextColumn::make('provinsi'),
                 TextColumn::make('kecamatan'),

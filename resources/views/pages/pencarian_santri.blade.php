@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app') {{-- tanpa sidebar --}}
 @section('title', 'Pencarian Data Santri')
 @section('content')
 <h2 class="text-center text-primary">Pencarian Data Santri</h2>

@@ -1,13 +1,22 @@
-@extends('layouts.app')
+@extends('layouts.with-sidebar')
+
 @section('title', 'Cek Saldo Santri')
+
 @section('content')
-<h2 class="text-center text-primary">Cek Saldo Santri</h2>
-<div class="saldo-card mt-4">
-    <p>Saldo Anda:</p>
-    <p class="saldo-amount">Rp. 1.250.000</p>
-</div>
-<div class="mt-4 text-center">
-    <button class="btn btn-success">Top Up Saldo</button>
-    <button class="btn btn-danger">Riwayat Transaksi</button>
+<div class="row justify-content-center align-items-center" style="min-height: 75vh;">
+    <div class="col-md-6 col-lg-5">
+        <div class="card shadow-lg border-0 rounded-4">
+            <div class="card-header bg-primary text-white text-center rounded-top-4">
+                <h5 class="mb-0 fw-semibold">
+                    <i class="bi bi-wallet2 me-2"></i>Saldo Santri
+                </h5>
+            </div>
+            <div class="card-body d-flex flex-column justify-content-center align-items-center py-5">
+                <i class="bi bi-cash-stack text-primary display-3 mb-3"></i>
+                <p class="text-muted mb-1">Saldo Anda Saat Ini</p>
+                <h1 class="fw-bold text-primary mb-0">Rp 1.500.000</h1>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection

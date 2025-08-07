@@ -5,6 +5,8 @@ namespace App\Filament\Resources\DashboardResource\Widgets;
 use App\Models\Santri;
 use App\Models\Tagihan;
 use App\Models\User;
+use App\Models\Alumni;
+
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Card;
 
@@ -24,10 +26,10 @@ class DashboardStats extends BaseWidget
                 ->descriptionColor('success'),
 
             // Section 2: Tagihan Belum Lunas
-            Card::make('Total Alumni',  Santri::where('status_santri', 'alumni')->count())
-                ->icon('heroicon-o-users')
-                ->color('danger')
-                ->descriptionIcon('heroicon-o-document'),
+            Card::make('Total Alumni', Alumni::count())
+    ->icon('heroicon-o-users')
+    ->color('danger')
+    ->descriptionIcon('heroicon-o-document'),
 
         ];
     }
