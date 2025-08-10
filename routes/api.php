@@ -2,6 +2,30 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\SantriController;
+use App\Http\Controllers\Api\AlumniController;
+use App\Http\Controllers\Api\DashboardController;
+use App\Http\Controllers\Api\JenisTagihanController;
+use App\Http\Controllers\Api\KamarController;
+use App\Http\Controllers\Api\LembagaController;
+use App\Http\Controllers\Api\PeriodeController;
+use App\Http\Controllers\Api\PersentaseTagihanController;
+use App\Http\Controllers\Api\RayonController;
+use App\Http\Controllers\Api\TagihanController;
+use App\Http\Controllers\Api\UserController;
+
+Route::apiResource('santri', SantriController::class);
+Route::apiResource('alumni', AlumniController::class);
+Route::apiResource('dashboard', DashboardController::class);
+Route::apiResource('jenis-tagihan', JenisTagihanController::class);
+Route::apiResource('kamar', KamarController::class);
+Route::apiResource('lembaga', LembagaController::class);
+Route::apiResource('periode', PeriodeController::class);
+Route::apiResource('persentase-tagihan', PersentaseTagihanController::class);
+Route::apiResource('rayon', RayonController::class);
+Route::apiResource('tagihan', TagihanController::class);
+Route::apiResource('user', UserController::class);
+
 
 /*
 |--------------------------------------------------------------------------

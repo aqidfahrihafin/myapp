@@ -32,6 +32,17 @@ class Santri extends Model
         'status_santri',
     ];
 
+    public function index()
+{
+    return Santri::with([
+        'rayon',
+        'kamar',
+        'lembaga',
+        'periode',
+        'tagihan'
+    ])->get();
+}
+
     // Tambahkan method boot() di sini
     protected static function boot()
     {
@@ -101,6 +112,12 @@ class Santri extends Model
     {
         return $this->belongsTo(PersentaseTagihan::class);
     }
+
+    public function lembaga()
+{
+    return $this->belongsTo(Lembaga::class, 'lembaga_id');
+}
+
 
     // Scope untuk mengambil santri yang berstatus alumni
     public function scopeAlumni($query)

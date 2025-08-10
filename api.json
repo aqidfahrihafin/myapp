@@ -1,0 +1,2015 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "Laravel",
+        "version": "0.0.1"
+    },
+    "servers": [
+        {
+            "url": "http://localhost/api"
+        }
+    ],
+    "paths": {
+        "/alumni": {
+            "get": {
+                "operationId": "alumni.index",
+                "summary": "Display a listing of the resource",
+                "tags": [
+                    "Alumni"
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            },
+            "post": {
+                "operationId": "alumni.store",
+                "summary": "Store a newly created resource in storage",
+                "tags": [
+                    "Alumni"
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/alumni/{alumnus}": {
+            "get": {
+                "operationId": "alumni.show",
+                "summary": "Display the specified resource",
+                "tags": [
+                    "Alumni"
+                ],
+                "parameters": [
+                    {
+                        "name": "alumnus",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            },
+            "put": {
+                "operationId": "alumni.update",
+                "summary": "Update the specified resource in storage",
+                "tags": [
+                    "Alumni"
+                ],
+                "parameters": [
+                    {
+                        "name": "alumnus",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "alumni.destroy",
+                "summary": "Remove the specified resource from storage",
+                "tags": [
+                    "Alumni"
+                ],
+                "parameters": [
+                    {
+                        "name": "alumnus",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/dashboard": {
+            "get": {
+                "operationId": "dashboard.index",
+                "tags": [
+                    "Dashboard"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "total_santri": {
+                                            "type": "string"
+                                        },
+                                        "total_rayon": {
+                                            "type": "string"
+                                        },
+                                        "total_kamar": {
+                                            "type": "string"
+                                        },
+                                        "total_tagihan": {
+                                            "type": "string"
+                                        },
+                                        "santri_aktif": {
+                                            "type": "string"
+                                        },
+                                        "santri_alumni": {
+                                            "type": "string"
+                                        },
+                                        "tagihan_terbayar": {
+                                            "type": "string"
+                                        },
+                                        "tagihan_belum_terbayar": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "total_santri",
+                                        "total_rayon",
+                                        "total_kamar",
+                                        "total_tagihan",
+                                        "santri_aktif",
+                                        "santri_alumni",
+                                        "tagihan_terbayar",
+                                        "tagihan_belum_terbayar"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/jenis-tagihan": {
+            "get": {
+                "operationId": "jenis-tagihan.index",
+                "summary": "Display a listing of the resource",
+                "tags": [
+                    "JenisTagihan"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ambil semua jenis tagihan",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "jenis-tagihan.store",
+                "summary": "Store a newly created resource in storage",
+                "tags": [
+                    "JenisTagihan"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "nama": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "deskripsi": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ]
+                                    }
+                                },
+                                "required": [
+                                    "nama"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    }
+                }
+            }
+        },
+        "/jenis-tagihan/{jenisTagihan}": {
+            "get": {
+                "operationId": "jenis-tagihan.show",
+                "summary": "Display the specified resource",
+                "tags": [
+                    "JenisTagihan"
+                ],
+                "parameters": [
+                    {
+                        "name": "jenisTagihan",
+                        "in": "path",
+                        "required": true,
+                        "description": "The jenis tagihan ID",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "`JenisTagihan`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JenisTagihan"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    }
+                }
+            },
+            "put": {
+                "operationId": "jenis-tagihan.update",
+                "summary": "Update the specified resource in storage",
+                "tags": [
+                    "JenisTagihan"
+                ],
+                "parameters": [
+                    {
+                        "name": "jenisTagihan",
+                        "in": "path",
+                        "required": true,
+                        "description": "The jenis tagihan ID",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "nama": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "deskripsi": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ]
+                                    }
+                                },
+                                "required": [
+                                    "nama"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "`JenisTagihan`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JenisTagihan"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "jenis-tagihan.destroy",
+                "summary": "Remove the specified resource from storage",
+                "tags": [
+                    "JenisTagihan"
+                ],
+                "parameters": [
+                    {
+                        "name": "jenisTagihan",
+                        "in": "path",
+                        "required": true,
+                        "description": "The jenis tagihan ID",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Jenis tagihan deleted successfully"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    }
+                }
+            }
+        },
+        "/kamar": {
+            "get": {
+                "operationId": "kamar.index",
+                "summary": "Display a listing of the resource",
+                "tags": [
+                    "Kamar"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ambil semua data kamar",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "kamar.store",
+                "summary": "Store a newly created resource in storage",
+                "tags": [
+                    "Kamar"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "nama_kamar": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "deskripsi": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ]
+                                    },
+                                    "rayon_id": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "required": [
+                                    "nama_kamar",
+                                    "rayon_id"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    }
+                }
+            }
+        },
+        "/kamar/{kamar}": {
+            "get": {
+                "operationId": "kamar.show",
+                "summary": "Display the specified resource",
+                "tags": [
+                    "Kamar"
+                ],
+                "parameters": [
+                    {
+                        "name": "kamar",
+                        "in": "path",
+                        "required": true,
+                        "description": "The kamar ID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "`Kamar`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Kamar"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    }
+                }
+            },
+            "put": {
+                "operationId": "kamar.update",
+                "summary": "Update the specified resource in storage",
+                "tags": [
+                    "Kamar"
+                ],
+                "parameters": [
+                    {
+                        "name": "kamar",
+                        "in": "path",
+                        "required": true,
+                        "description": "The kamar ID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "nama_kamar": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "deskripsi": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ]
+                                    },
+                                    "rayon_id": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "required": [
+                                    "nama_kamar",
+                                    "rayon_id"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "`Kamar`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Kamar"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "kamar.destroy",
+                "summary": "Remove the specified resource from storage",
+                "tags": [
+                    "Kamar"
+                ],
+                "parameters": [
+                    {
+                        "name": "kamar",
+                        "in": "path",
+                        "required": true,
+                        "description": "The kamar ID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Kamar deleted successfully"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    }
+                }
+            }
+        },
+        "/lembaga": {
+            "get": {
+                "operationId": "lembaga.index",
+                "summary": "Display a listing of the resource",
+                "tags": [
+                    "Lembaga"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "lembaga.store",
+                "summary": "Store a newly created resource in storage",
+                "tags": [
+                    "Lembaga"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "nama_lembaga": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "deskripsi": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ]
+                                    }
+                                },
+                                "required": [
+                                    "nama_lembaga"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    }
+                }
+            }
+        },
+        "/lembaga/{lembaga}": {
+            "get": {
+                "operationId": "lembaga.show",
+                "summary": "Display the specified resource",
+                "tags": [
+                    "Lembaga"
+                ],
+                "parameters": [
+                    {
+                        "name": "lembaga",
+                        "in": "path",
+                        "required": true,
+                        "description": "The lembaga ID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "`Lembaga`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Lembaga"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    }
+                }
+            },
+            "put": {
+                "operationId": "lembaga.update",
+                "summary": "Update the specified resource in storage",
+                "tags": [
+                    "Lembaga"
+                ],
+                "parameters": [
+                    {
+                        "name": "lembaga",
+                        "in": "path",
+                        "required": true,
+                        "description": "The lembaga ID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "nama_lembaga": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "deskripsi": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ]
+                                    }
+                                },
+                                "required": [
+                                    "nama_lembaga"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "`Lembaga`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Lembaga"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "lembaga.destroy",
+                "summary": "Remove the specified resource from storage",
+                "tags": [
+                    "Lembaga"
+                ],
+                "parameters": [
+                    {
+                        "name": "lembaga",
+                        "in": "path",
+                        "required": true,
+                        "description": "The lembaga ID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Lembaga deleted successfully"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    }
+                }
+            }
+        },
+        "/periode": {
+            "get": {
+                "operationId": "periode.index",
+                "summary": "Display a listing of the resource",
+                "tags": [
+                    "Periode"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "periode.store",
+                "summary": "Store a newly created resource in storage",
+                "tags": [
+                    "Periode"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "nama_periode": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "tanggal_mulai": {
+                                        "type": "string",
+                                        "format": "date-time"
+                                    },
+                                    "tanggal_selesai": {
+                                        "type": "string",
+                                        "format": "date-time"
+                                    }
+                                },
+                                "required": [
+                                    "nama_periode",
+                                    "tanggal_mulai",
+                                    "tanggal_selesai"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    }
+                }
+            }
+        },
+        "/periode/{periode}": {
+            "get": {
+                "operationId": "periode.show",
+                "summary": "Display the specified resource",
+                "tags": [
+                    "Periode"
+                ],
+                "parameters": [
+                    {
+                        "name": "periode",
+                        "in": "path",
+                        "required": true,
+                        "description": "The periode ID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "`Periode`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Periode"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    }
+                }
+            },
+            "put": {
+                "operationId": "periode.update",
+                "summary": "Update the specified resource in storage",
+                "tags": [
+                    "Periode"
+                ],
+                "parameters": [
+                    {
+                        "name": "periode",
+                        "in": "path",
+                        "required": true,
+                        "description": "The periode ID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "nama_periode": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "tanggal_mulai": {
+                                        "type": "string",
+                                        "format": "date-time"
+                                    },
+                                    "tanggal_selesai": {
+                                        "type": "string",
+                                        "format": "date-time"
+                                    }
+                                },
+                                "required": [
+                                    "nama_periode",
+                                    "tanggal_mulai",
+                                    "tanggal_selesai"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "`Periode`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Periode"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "periode.destroy",
+                "summary": "Remove the specified resource from storage",
+                "tags": [
+                    "Periode"
+                ],
+                "parameters": [
+                    {
+                        "name": "periode",
+                        "in": "path",
+                        "required": true,
+                        "description": "The periode ID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Periode deleted successfully"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    }
+                }
+            }
+        },
+        "/persentase-tagihan": {
+            "get": {
+                "operationId": "persentase-tagihan.index",
+                "summary": "Display a listing of the resource",
+                "tags": [
+                    "PersentaseTagihan"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "persentase-tagihan.store",
+                "summary": "Store a newly created resource in storage",
+                "tags": [
+                    "PersentaseTagihan"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "nama_persentase": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "persentase": {
+                                        "type": "number",
+                                        "minimum": 0,
+                                        "maximum": 100
+                                    },
+                                    "deskripsi": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ]
+                                    }
+                                },
+                                "required": [
+                                    "nama_persentase",
+                                    "persentase"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    }
+                }
+            }
+        },
+        "/persentase-tagihan/{persentaseTagihan}": {
+            "get": {
+                "operationId": "persentase-tagihan.show",
+                "summary": "Display the specified resource",
+                "tags": [
+                    "PersentaseTagihan"
+                ],
+                "parameters": [
+                    {
+                        "name": "persentaseTagihan",
+                        "in": "path",
+                        "required": true,
+                        "description": "The persentase tagihan ID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "`PersentaseTagihan`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PersentaseTagihan"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    }
+                }
+            },
+            "put": {
+                "operationId": "persentase-tagihan.update",
+                "summary": "Update the specified resource in storage",
+                "tags": [
+                    "PersentaseTagihan"
+                ],
+                "parameters": [
+                    {
+                        "name": "persentaseTagihan",
+                        "in": "path",
+                        "required": true,
+                        "description": "The persentase tagihan ID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "nama_persentase": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "persentase": {
+                                        "type": "number",
+                                        "minimum": 0,
+                                        "maximum": 100
+                                    },
+                                    "deskripsi": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ]
+                                    }
+                                },
+                                "required": [
+                                    "nama_persentase",
+                                    "persentase"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "`PersentaseTagihan`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PersentaseTagihan"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "persentase-tagihan.destroy",
+                "summary": "Remove the specified resource from storage",
+                "tags": [
+                    "PersentaseTagihan"
+                ],
+                "parameters": [
+                    {
+                        "name": "persentaseTagihan",
+                        "in": "path",
+                        "required": true,
+                        "description": "The persentase tagihan ID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Persentase tagihan deleted successfully"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    }
+                }
+            }
+        },
+        "/rayon": {
+            "get": {
+                "operationId": "rayon.index",
+                "summary": "Display a listing of the resource",
+                "tags": [
+                    "Rayon"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ambil semua data dari tabel rayons",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "rayon.store",
+                "summary": "Store a newly created resource in storage",
+                "tags": [
+                    "Rayon"
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/rayon/{rayon}": {
+            "get": {
+                "operationId": "rayon.show",
+                "summary": "Display the specified resource",
+                "tags": [
+                    "Rayon"
+                ],
+                "parameters": [
+                    {
+                        "name": "rayon",
+                        "in": "path",
+                        "required": true,
+                        "description": "The rayon ID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    }
+                }
+            },
+            "put": {
+                "operationId": "rayon.update",
+                "summary": "Update the specified resource in storage",
+                "tags": [
+                    "Rayon"
+                ],
+                "parameters": [
+                    {
+                        "name": "rayon",
+                        "in": "path",
+                        "required": true,
+                        "description": "The rayon ID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "rayon.destroy",
+                "summary": "Remove the specified resource from storage",
+                "tags": [
+                    "Rayon"
+                ],
+                "parameters": [
+                    {
+                        "name": "rayon",
+                        "in": "path",
+                        "required": true,
+                        "description": "The rayon ID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    }
+                }
+            }
+        },
+        "/santri": {
+            "get": {
+                "operationId": "santri.index",
+                "tags": [
+                    "Santri"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "santri.store",
+                "tags": [
+                    "Santri"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "nama": {
+                                        "type": "string"
+                                    },
+                                    "rayon_id": {
+                                        "type": "integer"
+                                    },
+                                    "kamar_id": {
+                                        "type": "integer"
+                                    },
+                                    "lembaga_id": {
+                                        "type": "integer"
+                                    },
+                                    "periode_id": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "required": [
+                                    "nama",
+                                    "rayon_id",
+                                    "kamar_id",
+                                    "lembaga_id",
+                                    "periode_id"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    }
+                }
+            }
+        },
+        "/santri/{santri}": {
+            "get": {
+                "operationId": "santri.show",
+                "tags": [
+                    "Santri"
+                ],
+                "parameters": [
+                    {
+                        "name": "santri",
+                        "in": "path",
+                        "required": true,
+                        "description": "The santri ID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    }
+                }
+            },
+            "put": {
+                "operationId": "santri.update",
+                "tags": [
+                    "Santri"
+                ],
+                "parameters": [
+                    {
+                        "name": "santri",
+                        "in": "path",
+                        "required": true,
+                        "description": "The santri ID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "nama": {
+                                        "type": "string"
+                                    },
+                                    "rayon_id": {
+                                        "type": "integer"
+                                    },
+                                    "kamar_id": {
+                                        "type": "integer"
+                                    },
+                                    "lembaga_id": {
+                                        "type": "integer"
+                                    },
+                                    "periode_id": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "required": [
+                                    "nama",
+                                    "rayon_id",
+                                    "kamar_id",
+                                    "lembaga_id",
+                                    "periode_id"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "santri.destroy",
+                "tags": [
+                    "Santri"
+                ],
+                "parameters": [
+                    {
+                        "name": "santri",
+                        "in": "path",
+                        "required": true,
+                        "description": "The santri ID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Deleted"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    }
+                }
+            }
+        },
+        "/tagihan": {
+            "get": {
+                "operationId": "tagihan.index",
+                "tags": [
+                    "Tagihan"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/user": {
+            "post": {
+                "operationId": "user.store",
+                "summary": "Store a newly created resource in storage",
+                "tags": [
+                    "User"
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/user/{user}": {
+            "get": {
+                "operationId": "user.show",
+                "summary": "Display the specified resource",
+                "tags": [
+                    "User"
+                ],
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "path",
+                        "required": true,
+                        "description": "The user ID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    }
+                }
+            },
+            "put": {
+                "operationId": "user.update",
+                "summary": "Update the specified resource in storage",
+                "tags": [
+                    "User"
+                ],
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "path",
+                        "required": true,
+                        "description": "The user ID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "user.destroy",
+                "summary": "Remove the specified resource from storage",
+                "tags": [
+                    "User"
+                ],
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "path",
+                        "required": true,
+                        "description": "The user ID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "JenisTagihan": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "nama_jenis": {
+                        "type": "string"
+                    },
+                    "deskripsi": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "deleted_at": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "created_at": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    }
+                },
+                "required": [
+                    "id",
+                    "nama_jenis",
+                    "deskripsi",
+                    "deleted_at",
+                    "created_at",
+                    "updated_at"
+                ],
+                "title": "JenisTagihan"
+            },
+            "Kamar": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "rayon_id": {
+                        "type": "integer"
+                    },
+                    "nama_kamar": {
+                        "type": "string"
+                    },
+                    "kapasitas": {
+                        "type": "integer"
+                    },
+                    "deskripsi": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "deleted_at": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "created_at": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    }
+                },
+                "required": [
+                    "id",
+                    "rayon_id",
+                    "nama_kamar",
+                    "kapasitas",
+                    "deskripsi",
+                    "deleted_at",
+                    "created_at",
+                    "updated_at"
+                ],
+                "title": "Kamar"
+            },
+            "Lembaga": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "nama_lembaga": {
+                        "type": "string"
+                    },
+                    "image": {
+                        "type": "string"
+                    },
+                    "nsm": {
+                        "type": "string"
+                    },
+                    "npsm": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "kecamatan": {
+                        "type": "string"
+                    },
+                    "kabupaten": {
+                        "type": "string"
+                    },
+                    "provinsi": {
+                        "type": "string"
+                    },
+                    "alamat": {
+                        "type": "string"
+                    },
+                    "nama_pinpinan": {
+                        "type": "string"
+                    },
+                    "nip": {
+                        "type": "string"
+                    },
+                    "deleted_at": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "created_at": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    }
+                },
+                "required": [
+                    "id",
+                    "nama_lembaga",
+                    "image",
+                    "nsm",
+                    "npsm",
+                    "kecamatan",
+                    "kabupaten",
+                    "provinsi",
+                    "alamat",
+                    "nama_pinpinan",
+                    "nip",
+                    "deleted_at",
+                    "created_at",
+                    "updated_at"
+                ],
+                "title": "Lembaga"
+            },
+            "Periode": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "kode_periode": {
+                        "type": "string"
+                    },
+                    "nama_periode": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "deleted_at": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "created_at": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    }
+                },
+                "required": [
+                    "id",
+                    "kode_periode",
+                    "nama_periode",
+                    "status",
+                    "deleted_at",
+                    "created_at",
+                    "updated_at"
+                ],
+                "title": "Periode"
+            },
+            "PersentaseTagihan": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "jabatan_santri": {
+                        "type": "string"
+                    },
+                    "potongan": {
+                        "type": "string"
+                    },
+                    "deskripsi": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "deleted_at": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "created_at": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    }
+                },
+                "required": [
+                    "id",
+                    "jabatan_santri",
+                    "potongan",
+                    "deskripsi",
+                    "deleted_at",
+                    "created_at",
+                    "updated_at"
+                ],
+                "title": "PersentaseTagihan"
+            }
+        },
+        "responses": {
+            "ValidationException": {
+                "description": "Validation error",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "description": "Errors overview."
+                                },
+                                "errors": {
+                                    "type": "object",
+                                    "description": "A detailed description of each field that failed validation.",
+                                    "additionalProperties": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            },
+                            "required": [
+                                "message",
+                                "errors"
+                            ]
+                        }
+                    }
+                }
+            },
+            "ModelNotFoundException": {
+                "description": "Not found",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "description": "Error overview."
+                                }
+                            },
+                            "required": [
+                                "message"
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
