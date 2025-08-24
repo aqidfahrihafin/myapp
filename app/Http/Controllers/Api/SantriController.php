@@ -37,11 +37,17 @@ class SantriController extends Controller
     public function update(Request $request, Santri $santri)
     {
         $data = $request->validate([
-            'nama' => 'required|string',
-            'rayon_id' => 'required|exists:rayon,id',
-            'kamar_id' => 'required|exists:kamar,id',
-            'lembaga_id' => 'required|exists:lembaga,id',
-            'periode_id' => 'required|exists:periode,id',
+            // 'nama' => 'required|string',
+            // 'rayon_id' => 'required|exists:rayon,id',
+            // 'kamar_id' => 'required|exists:kamar,id',
+            // 'lembaga_id' => 'required|exists:lembaga,id',
+            // 'periode_id' => 'required|exists:periode,id',
+            'nama_wali' => 'required|',
+            'email_wali' => 'required|',
+            'no_hp_wali' => 'required|',
+            'alamat_wali' => 'required|',
+            'tanggal_lahir_wali' => 'required|',
+            'no_kk' =>'required|',
         ]);
 
         $santri->update($data);

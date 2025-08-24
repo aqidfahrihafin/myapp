@@ -66,7 +66,7 @@ class Santri extends Model
                     'no_kk' => $santri->no_kk,
                     'nama' => $santri->nama,
                     'image' => $santri->image,
-                     'image_wali' => $santri->image_wali,
+                    'image_wali' => $santri->image_wali,
                     'tempat_lahir' => $santri->tempat_lahir,
                     'tanggal_lahir' => $santri->tanggal_lahir,
                     'alamat' => $santri->alamat,
