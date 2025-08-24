@@ -25,11 +25,16 @@ class Santri extends Model
         'no_kk',
         'nama',
         'image',
+         'image_wali', 
         'tempat_lahir',
         'tanggal_lahir',
         'alamat',
         'jenis_kelamin',
         'status_santri',
+        'email_wali',
+        'tanggal_lahir_wali',
+        'alamat_wali',
+        'no_hp_wali',
     ];
 
     public function index()
@@ -61,6 +66,7 @@ class Santri extends Model
                     'no_kk' => $santri->no_kk,
                     'nama' => $santri->nama,
                     'image' => $santri->image,
+                     'image_wali' => $santri->image_wali,
                     'tempat_lahir' => $santri->tempat_lahir,
                     'tanggal_lahir' => $santri->tanggal_lahir,
                     'alamat' => $santri->alamat,
@@ -130,4 +136,5 @@ class Santri extends Model
     {
         return $query->where('status_santri', 'aktif');
     }
+    
 }

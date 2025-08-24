@@ -14,22 +14,16 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
-use Filament\Pages\Actions\DeleteAction;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\BulkActionGroup;
-use Filament\Tables\Actions\CreateAction;
 use Filament\Tables\Actions\DeleteBulkAction;
-use Filament\Tables\Actions\EditAction;
-use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
-use Forms\Form;
 use Maatwebsite\Excel\Facades\Excel;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportAction as ExcelExportAction;
-use Tables\Table;
 
 class SantriResource extends Resource
 {
@@ -84,85 +78,110 @@ class SantriResource extends Resource
                 ->label('Nama Wali')
                 ->required(),
 
-            Textarea::make('alamat')
-                ->label('Alamat')
-                ->required()
-                ->columnSpan(2),
+            // === tambahan field wali ===
+            TextInput::make('email_wali')
+                ->label('Email Wali')
+                ->email()
+                ->nullable(),
 
-                        Select::make('kamar_id')
-                        ->label('Kamar & Rayon')
-                        ->relationship('kamar', 'nama_kamar')
-                        ->getOptionLabelFromRecordUsing(function ($record) {
-                            return $record->nama_kamar . ' | ' . $record->rayon->nama_rayon;
-                        })
-                        ->required()
-                        ->createOptionForm([
-                TextInput::make('nama_kamar')
-                    ->label('Nama Kamar')
-                    ->required()
-                    ->rules(['required', 'unique:kamar,nama_kamar'])
-                    ->validationMessages([
-                        'unique' => 'nama kamar sudah terdaftar!',
-                ]),
+            DatePicker::make('tanggal_lahir_wali')
+                ->label('Tanggal Lahir Wali')
+                ->nullable(),
 
-                Select::make('rayon_id')
-                ->label('Rayon')
-                ->relationship('rayon', 'nama_rayon')
-                // ->searchable() // Opsional:
-                ->required()
-                ->createOptionForm([
-                    FileUpload::make('image')
-                        ->image()
-                        ->directory('rayons')
-                        ->required()
-                        ->columnSpan(2),
-                    TextInput::make('nama_rayon')
-                        ->label('Nama Rayon')
-                        ->required()
-                        ->columnSpan(2),
-                    Textarea::make('deskripsi')
-                        ->label('Deskripsi Rayon')
-                        ->required()
-                        ->columnSpan(2),
-                ]),
-
-            TextInput::make('kapasitas')
-                ->label('Kapasitas')
-                ->numeric()
-                ->required()
-                ->columnSpan(2),
-
-            Textarea::make('deskripsi')
-                ->label('Deskripsi')
+            Textarea::make('alamat_wali')
+                ->label('Alamat Wali')
                 ->nullable()
                 ->columnSpan(2),
-                ]),
 
-             Select::make('persentase_tagihan_id')
-                ->label('Jabatan')
-                ->relationship('persentase_tagihan', 'jabatan_santri')
-                // ->searchable() // Opsional:
+            TextInput::make('no_hp_wali')
+                ->label('No HP Wali')
+                ->tel()
+                ->nullable(),
+            FileUpload::make('image_wali')   
+            ->label('Foto Wali')
+            ->image()
+            ->directory('wali')
+            ->disk('public')
+            ->nullable()
+            ->columnSpan(2),
+            // ============================
+
+            Textarea::make('alamat')
+                ->label('Alamat Santri')
+                ->required()
+                ->columnSpan(2),
+
+            Select::make('kamar_id')
+                ->label('Kamar & Rayon')
+                ->relationship('kamar', 'nama_kamar')
+                ->getOptionLabelFromRecordUsing(function ($record) {
+                    return $record->nama_kamar . ' | ' . $record->rayon->nama_rayon;
+                })
                 ->required()
                 ->createOptionForm([
-                     TextInput::make('jabatan_santri')
-                            ->label('Tingkat')
-                            ->required()
-                            ->columnSpan(2),
-                    TextInput::make('potongan')
-                            ->label('potongan')
-                            ->numeric()
-                            ->required()
-                            ->columnSpan(2),
+                    TextInput::make('nama_kamar')
+                        ->label('Nama Kamar')
+                        ->required()
+                        ->rules(['required', 'unique:kamar,nama_kamar'])
+                        ->validationMessages([
+                            'unique' => 'nama kamar sudah terdaftar!',
+                        ]),
+
+                    Select::make('rayon_id')
+                        ->label('Rayon')
+                        ->relationship('rayon', 'nama_rayon')
+                        ->required()
+                        ->createOptionForm([
+                            FileUpload::make('image')
+                                ->image()
+                                ->directory('rayons')
+                                ->required()
+                                ->columnSpan(2),
+                            TextInput::make('nama_rayon')
+                                ->label('Nama Rayon')
+                                ->required()
+                                ->columnSpan(2),
+                            Textarea::make('deskripsi')
+                                ->label('Deskripsi Rayon')
+                                ->required()
+                                ->columnSpan(2),
+                        ]),
+
+                    TextInput::make('kapasitas')
+                        ->label('Kapasitas')
+                        ->numeric()
+                        ->required()
+                        ->columnSpan(2),
+
                     Textarea::make('deskripsi')
-                            ->label('Deskripsi')
-                            ->required()
-                            ->columnSpan(2),
+                        ->label('Deskripsi')
+                        ->nullable()
+                        ->columnSpan(2),
                 ]),
 
-             Select::make('periode_id')
-                ->label('periode')
+            Select::make('persentase_tagihan_id')
+                ->label('Jabatan')
+                ->relationship('persentase_tagihan', 'jabatan_santri')
+                ->required()
+                ->createOptionForm([
+                    TextInput::make('jabatan_santri')
+                        ->label('Tingkat')
+                        ->required()
+                        ->columnSpan(2),
+                    TextInput::make('potongan')
+                        ->label('potongan')
+                        ->numeric()
+                        ->required()
+                        ->columnSpan(2),
+                    Textarea::make('deskripsi')
+                        ->label('Deskripsi')
+                        ->required()
+                        ->columnSpan(2),
+                ]),
+
+            Select::make('periode_id')
+                ->label('Periode')
                 ->relationship('periode', 'nama_periode')
-                // ->searchable() // Opsional:
                 ->required()
                 ->createOptionForm([
                     TextInput::make('kode_periode')
@@ -177,7 +196,7 @@ class SantriResource extends Resource
                         ->options([
                             'aktif' => 'aktif',
                             'alumni' => 'non-aktif'
-                     ])
+                        ])
                 ]),
 
             Select::make('hubungan_wali')
@@ -201,6 +220,7 @@ class SantriResource extends Resource
             FileUpload::make('image')
                 ->image()
                 ->directory('santri')
+                 ->disk('public')
                 ->required()
                 ->columnSpan(2),
         ]);
@@ -209,9 +229,10 @@ class SantriResource extends Resource
     public static function table(Tables\Table $table): Tables\Table
     {
         return $table
-              ->columns([
+            ->columns([
                 ImageColumn::make('image')
                     ->circular()
+                     ->disk('public')
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('nama')
@@ -258,21 +279,21 @@ class SantriResource extends Resource
                 TextColumn::make('status_santri')
                     ->label('Status Santri')
                     ->badge()
-                    ->color(function (string $state): string {
-                        return match ($state) {
-                            'aktif' => 'success',
-                            'non-aktif' => 'danger',
-                            'alumni' => 'warning',
-                        };
+                    ->color(fn(string $state): string => match ($state) {
+                        'aktif' => 'success',
+                        'non-aktif' => 'danger',
+                        'alumni' => 'warning',
                     }),
             ])
 
             ->filters([
-                SelectFilter::make('santri')->label('Nama Kamar')->relationship('kamar', 'nama_kamar'),
+                SelectFilter::make('santri')
+                    ->label('Nama Kamar')
+                    ->relationship('kamar', 'nama_kamar'),
             ])
 
             ->actions([
-                 Tables\Actions\ViewAction::make()
+                Tables\Actions\ViewAction::make()
                     ->icon('heroicon-o-eye')
                     ->label(''),
                 Tables\Actions\EditAction::make()
@@ -283,54 +304,51 @@ class SantriResource extends Resource
                     ->label(''),
             ])
 
-
-          ->headerActions([
+            ->headerActions([
                 Action::make('import')
                     ->label('Import Data')
                     ->action(function (array $data) {
                         if (!isset($data['file']) || !is_string($data['file'])) {
-                                throw new \Exception('File tidak diterima oleh sistem. Pastikan Anda sudah mengunggah file yang benar.');
-                            }
+                            throw new \Exception('File tidak diterima oleh sistem. Pastikan Anda sudah mengunggah file yang benar.');
+                        }
 
-                            $filePath = $data['file'];
-                            if (!file_exists(storage_path('app/public/' . $filePath))) {
-                                throw new \Exception('File tidak ditemukan di path: ' . $filePath);
-                            }
+                        $filePath = $data['file'];
+                        if (!file_exists(storage_path('app/public/' . $filePath))) {
+                            throw new \Exception('File tidak ditemukan di path: ' . $filePath);
+                        }
 
                         try {
-                            // Proses import dengan path lengkap
-                        $import = new SantriImport();
-                        Excel::import(new SantriImport, storage_path('app/public/' . $filePath));
+                            $import = new SantriImport();
+                            Excel::import(new SantriImport, storage_path('app/public/' . $filePath));
 
-                        // Kirimkan notifikasi
-                      Notification::make()
-                        ->title('Proses Impor Selesai')
-                        ->body("Berhasil mengimpor " . $successCount = $import->getSuccessCount(). " data, gagal mengimpor " . $failCount = $import->getFailCount() . " data.")
-                        ->success()
-                        ->send();
-                    } catch (\Exception $e) {
-                        // Jika terjadi error
-                        Notification::make()
-                            ->title('Terjadi Kesalahan')
-                            ->body('Proses impor gagal: ' . $e->getMessage())
-                            ->danger()
-                            ->send();
-                    }
-                })
-                ->form([
-                    FileUpload::make('file')
-                        ->label('File Excel')
-                        ->required()
-                        ->acceptedFileTypes(['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'])
-                        ->disk('public') // Tentukan disk 'public' agar file tersimpan di public
-                        ->directory('temp'),  // Tempat penyimpanan file sementara
-                ])
-                ->icon('heroicon-o-arrow-up-tray')
-                ->color('danger'),
+                            Notification::make()
+                                ->title('Proses Impor Selesai')
+                                ->body("Berhasil mengimpor " . $import->getSuccessCount() . " data, gagal mengimpor " . $import->getFailCount() . " data.")
+                                ->success()
+                                ->send();
+                        } catch (\Exception $e) {
+                            Notification::make()
+                                ->title('Terjadi Kesalahan')
+                                ->body('Proses impor gagal: ' . $e->getMessage())
+                                ->danger()
+                                ->send();
+                        }
+                    })
+                    ->form([
+                        FileUpload::make('file')
+                            ->label('File Excel')
+                            ->required()
+                            ->acceptedFileTypes(['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'])
+                            ->disk('public')
+                            ->directory('temp'),
+                    ])
+                    ->icon('heroicon-o-arrow-up-tray')
+                    ->color('danger'),
 
-                Tables\Actions\CreateAction::make()->label('Add Santri')
-                ->label('Add Santri')
-                ->icon('heroicon-o-plus-circle'),
+                Tables\Actions\CreateAction::make()
+                    ->label('Add Santri')
+                    ->icon('heroicon-o-plus-circle'),
+
                 ExcelExportAction::make()->color('success'),
             ])
 

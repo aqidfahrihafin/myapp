@@ -14,7 +14,9 @@
             <div class="card-body d-flex flex-column justify-content-center align-items-center py-5">
                 <i class="bi bi-cash-stack text-primary display-3 mb-3"></i>
                 <p class="text-muted mb-1">Saldo Anda Saat Ini</p>
-                <h1 class="fw-bold text-primary mb-0">Rp 1.500.000</h1>
+                <h1 class="fw-bold text-primary mb-0">
+                    Rp {{ number_format($saldo ?? 0, 0, ',', '.') }}
+                </h1>
             </div>
         </div>
     </div>
